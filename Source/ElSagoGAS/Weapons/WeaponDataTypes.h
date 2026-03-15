@@ -55,7 +55,7 @@ struct FWeaponInfo
 	FName HandSocketName;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	FName BackSocketName;
+	FName UnequippedSocketName;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	FWeaponAnimationData AnimationData;
