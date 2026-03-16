@@ -5,15 +5,17 @@
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemInterface.h"
+#include "ElSagoGAS/AbilitySystem/SagoBaseCharacterInterface.h"
 #include "GameFramework/Character.h"
 #include "SagoBaseCharacter.generated.h"
 
+class USagoAbilitySystemComponent;
 class USagoAttributeSet;
 enum class EGameplayEffectReplicationMode : uint8;
 class UAbilitySystemComponent;
 
 UCLASS()
-class ELSAGOGAS_API ASagoBaseCharacter : public ACharacter, public IAbilitySystemInterface
+class ELSAGOGAS_API ASagoBaseCharacter : public ACharacter, public IAbilitySystemInterface, public ISagoBaseCharacterInterface
 {
 	GENERATED_BODY()
 
@@ -22,7 +24,7 @@ public:
 	ASagoBaseCharacter();
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability System")
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	TObjectPtr<USagoAbilitySystemComponent> AbilitySystemComponent;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability System")
 	TObjectPtr<USagoAttributeSet> AttributeSet;
@@ -40,12 +42,17 @@ protected:
 	//For the init ability actor info.
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;
-	void SendAbilitiesChangedEvent();
-
+	
 	UFUNCTION(BlueprintCallable, Category = "Ability")
 	TArray<FGameplayAbilitySpecHandle> GrantAbilities(TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant);
 	UFUNCTION(BlueprintCallable, Category = "Ability")
-	void RemoveAbilities(TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove) const;
+	void RemoveAbilities(TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove);
+	
+	/* SagoBaseCharacterInterface Start */
+	virtual TArray<FGameplayAbilitySpecHandle> SagoGrantAbilities(TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant) override;
+	virtual void SagoRemoveAbilities(TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove) override;
+	 /* SagoBaseCharacterInterface End */
+	
 	
 public:	
 	// Called every frame
@@ -55,4 +62,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	
+	void SendAbilitiesChangedEvent();
+
 };

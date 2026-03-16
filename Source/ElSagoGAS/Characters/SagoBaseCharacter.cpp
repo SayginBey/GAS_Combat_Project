@@ -5,6 +5,7 @@
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
+#include "ElSagoGAS/AbilitySystem/SagoAbilitySystemComponent.h"
 #include "ElSagoGAS/AbilitySystem/SagoAttributeSet.h"
 
 // Sets default values
@@ -13,7 +14,7 @@ ASagoBaseCharacter::ASagoBaseCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
-	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+	AbilitySystemComponent = CreateDefaultSubobject<USagoAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(AscReplicationMode);
 	
@@ -83,14 +84,14 @@ TArray<FGameplayAbilitySpecHandle> ASagoBaseCharacter::GrantAbilities(
 		if (Ability)
 		{
 			FGameplayAbilitySpecHandle AbilityHandle = GetAbilitySystemComponent()->GiveAbility(FGameplayAbilitySpec(Ability,1, INDEX_NONE, this));
-			SendAbilitiesChangedEvent();
 			GrantedAbilityHandles.Add(AbilityHandle);
+			SendAbilitiesChangedEvent();
 		}
 	}
 	return GrantedAbilityHandles;
 }
 
-void ASagoBaseCharacter::RemoveAbilities(TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove) const
+void ASagoBaseCharacter::RemoveAbilities(TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove)
 {
 	if (!AbilitySystemComponent || !HasAuthority()) { return; }
 	
@@ -98,6 +99,19 @@ void ASagoBaseCharacter::RemoveAbilities(TArray<FGameplayAbilitySpecHandle> Abil
 	{
 		GetAbilitySystemComponent()->ClearAbility(AbilityHandle);
 	}
+	SendAbilitiesChangedEvent();
+}
+
+TArray<FGameplayAbilitySpecHandle> ASagoBaseCharacter::SagoGrantAbilities(
+	TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant)
+{
+	if (AbilitiesToGrant.Num() == 0){return TArray<FGameplayAbilitySpecHandle>();}
+	return GrantAbilities(AbilitiesToGrant);
+}
+
+void ASagoBaseCharacter::SagoRemoveAbilities(TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove)
+{
+	RemoveAbilities(AbilitiesToRemove);
 }
 
 void ASagoBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

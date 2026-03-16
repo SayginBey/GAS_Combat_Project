@@ -6,6 +6,8 @@
 
 #include "WeaponDataTypes.generated.h"
 
+class UGameplayAbility;
+
 USTRUCT(BlueprintType)
 struct FWeaponAnimationData
 {
@@ -50,6 +52,9 @@ struct FWeaponInfo
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	int32 DamageAmount;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	TArray<TSubclassOf<UGameplayAbility>> GrantedAbilitiesByWeapon;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	FName HandSocketName;
