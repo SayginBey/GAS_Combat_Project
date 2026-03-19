@@ -32,7 +32,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE EWeaponType GetEquippedWeaponType() const {return WeaponType;}
+	FORCEINLINE EWeaponType GetWeaponType() const {return WeaponType;}
 	
 private:
 	

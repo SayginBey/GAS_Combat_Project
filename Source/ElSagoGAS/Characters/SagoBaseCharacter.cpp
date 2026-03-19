@@ -109,7 +109,7 @@ TArray<FGameplayAbilitySpecHandle> ASagoBaseCharacter::SagoGrantAbilities(
 	return GrantAbilities(AbilitiesToGrant);
 }
 
-void ASagoBaseCharacter::SagoRemoveAbilities(TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove)
+void ASagoBaseCharacter::SagoRemoveAbilities(const TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove)
 {
 	RemoveAbilities(AbilitiesToRemove);
 }

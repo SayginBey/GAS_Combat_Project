@@ -6,6 +6,7 @@
 
 #include "WeaponDataTypes.generated.h"
 
+struct FGameplayEffectSpecHandle;
 class UGameplayAbility;
 
 USTRUCT(BlueprintType)
@@ -63,6 +64,9 @@ struct FWeaponInfo
 	FName UnequippedSocketName;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float HitTraceRadius;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	FWeaponAnimationData AnimationData;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
@@ -73,8 +77,8 @@ UENUM(BlueprintType)
 enum class EWeaponType: uint8
 {
 	EWT_None UMETA(DisplayName = "None"),
-	EWT_Axe UMETA(DisplayName = "Axe")
-	
+	EWT_Axe UMETA(DisplayName = "Axe"),
+	EWT_Katana UMETA(DisplayName = "Katana")
 };
 
 class ELSAGOGAS_API WeaponDataTypes
