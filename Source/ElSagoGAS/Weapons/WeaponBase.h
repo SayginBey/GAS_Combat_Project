@@ -25,9 +25,6 @@ protected:
 
 public:
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "WeaponProperties")
-	TObjectPtr<UWeaponDataAsset> WeaponData;
-	
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	FORCEINLINE FWeaponInfo GetWeaponInfo() const { return WeaponData->WeaponInfo;}
 	
@@ -40,4 +37,6 @@ private:
 	
 	EWeaponType WeaponType;
 	
+	UPROPERTY(EditDefaultsOnly, Category= "WeaponProperties")
+	TObjectPtr<UWeaponDataAsset> WeaponData;
 };
