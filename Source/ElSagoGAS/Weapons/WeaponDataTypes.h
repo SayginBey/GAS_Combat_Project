@@ -24,6 +24,9 @@ struct FWeaponAnimationData
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	TObjectPtr<UAnimMontage> UnequipMontage;
 	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	TMap<int32,TObjectPtr<UAnimMontage>> ComboIndexToMontageMap;
+	
 	
 };
 
@@ -86,4 +89,6 @@ class ELSAGOGAS_API WeaponDataTypes
 public:
 	WeaponDataTypes();
 	~WeaponDataTypes();
+	
+	
 };

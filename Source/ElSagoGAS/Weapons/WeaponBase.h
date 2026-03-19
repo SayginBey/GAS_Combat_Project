@@ -3,13 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "WeaponDataAsset.h"
 #include "GameFramework/Actor.h"
 #include "WeaponDataTypes.h"
 
 #include "WeaponBase.generated.h"
 
-
-class UWeaponDataAsset;
 
 UCLASS()
 class ELSAGOGAS_API AWeaponBase : public AActor
@@ -28,6 +27,9 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "WeaponProperties")
 	TObjectPtr<UWeaponDataAsset> WeaponData;
+	
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	FORCEINLINE FWeaponInfo GetWeaponInfo() const { return WeaponData->WeaponInfo;}
 	
 	virtual void Tick(float DeltaTime) override;
 	

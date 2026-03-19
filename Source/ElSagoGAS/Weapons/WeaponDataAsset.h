@@ -19,4 +19,5 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FWeaponInfo WeaponInfo;
+	
 };
