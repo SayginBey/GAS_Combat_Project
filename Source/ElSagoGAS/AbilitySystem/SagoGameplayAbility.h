@@ -23,7 +23,7 @@ public:
 	FAbilityInfo AbilityInfo;*/
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Info")
-	USagoAbilityPrimaryDataAsset* AbilityDataAsset;
+	USagoAbilityPrimaryDataAsset* AbilityPrimaryDataAsset;
 	
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	FAbilityInfo GetAbilityInfo() const;

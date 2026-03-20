@@ -9,6 +9,15 @@
 struct FGameplayEffectSpecHandle;
 class UGameplayAbility;
 
+UENUM(BlueprintType)
+enum class EWeaponType: uint8
+{
+	EWT_None UMETA(DisplayName = "None"),
+	EWT_Axe UMETA(DisplayName = "Axe"),
+	EWT_Katana UMETA(DisplayName = "Katana"),
+	EWT_Staff UMETA(DisplayName = "Staff")
+};
+
 USTRUCT(BlueprintType)
 struct FWeaponAnimationData
 {
@@ -55,7 +64,7 @@ struct FWeaponInfo
 	FString WeaponName;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	int32 DamageAmount;
+	EWeaponType WeaponType;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	TArray<TSubclassOf<UGameplayAbility>> GrantedAbilitiesByWeapon;
@@ -74,14 +83,6 @@ struct FWeaponInfo
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	FWeaponMovementProperties MovementProperties;
-};
-
-UENUM(BlueprintType)
-enum class EWeaponType: uint8
-{
-	EWT_None UMETA(DisplayName = "None"),
-	EWT_Axe UMETA(DisplayName = "Axe"),
-	EWT_Katana UMETA(DisplayName = "Katana")
 };
 
 class ELSAGOGAS_API WeaponDataTypes

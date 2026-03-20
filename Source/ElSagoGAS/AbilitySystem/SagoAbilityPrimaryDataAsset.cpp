@@ -3,11 +3,11 @@
 
 #include "SagoAbilityPrimaryDataAsset.h"
 
-FAbilityInfo USagoAbilityPrimaryDataAsset::FindAbilityInfoByTag(const FGameplayTag& Tag)
+FAbilityInfo USagoAbilityPrimaryDataAsset::FindAbilityInfoByTag(const FGameplayTag& AbilityAssetTag)
 {
-	if (!Tag.IsValid()){return FAbilityInfo();}
+	if (!AbilityAssetTag.IsValid()){return FAbilityInfo();}
 
-	if (const FAbilityInfo* AbilityInfo = AbilityTagToInfoMap.Find(Tag))
+	if (const FAbilityInfo* AbilityInfo = AbilityTagToInfoMap.Find(AbilityAssetTag))
 	{
 		return *AbilityInfo;
 	}

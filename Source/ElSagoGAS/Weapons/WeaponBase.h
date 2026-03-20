@@ -3,12 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
+
 #include "WeaponDataAsset.h"
 #include "GameFramework/Actor.h"
 #include "WeaponDataTypes.h"
 
 #include "WeaponBase.generated.h"
 
+
+class USagoWeaponPrimaryDataAsset;
 
 UCLASS()
 class ELSAGOGAS_API AWeaponBase : public AActor
@@ -26,17 +30,17 @@ protected:
 public:
 	
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	FORCEINLINE FWeaponInfo GetWeaponInfo() const { return WeaponData->WeaponInfo;}
+	FORCEINLINE FWeaponInfo GetWeaponInfo() const;
 	
 	virtual void Tick(float DeltaTime) override;
-	
-	UFUNCTION(BlueprintCallable)
-	FORCEINLINE EWeaponType GetWeaponType() const {return WeaponType;}
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category= "Weapon Properties")
+	FGameplayTag WeaponTag;
 	
 private:
 	
 	EWeaponType WeaponType;
 	
-	UPROPERTY(EditDefaultsOnly, Category= "WeaponProperties")
-	TObjectPtr<UWeaponDataAsset> WeaponData;
+	UPROPERTY(EditDefaultsOnly, Category= "Weapon Properties")
+	TObjectPtr<USagoWeaponPrimaryDataAsset> WeaponPrimaryDataAsset;
 };

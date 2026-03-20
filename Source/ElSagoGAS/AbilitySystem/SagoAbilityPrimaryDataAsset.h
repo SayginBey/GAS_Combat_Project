@@ -26,6 +26,6 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TMap<FGameplayTag, FAbilityInfo> AbilityTagToInfoMap;
 	
-	UFUNCTION(BlueprintCallable)
-	FAbilityInfo FindAbilityInfoByTag(const FGameplayTag& Tag);
+	UFUNCTION()
+	FAbilityInfo FindAbilityInfoByTag(const FGameplayTag& AbilityAssetTag);
 };

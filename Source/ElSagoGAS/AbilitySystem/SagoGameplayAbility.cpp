@@ -7,10 +7,11 @@
 
 FAbilityInfo USagoGameplayAbility::GetAbilityInfo() const
 {
-	if (AbilityDataAsset)
+	if (AbilityPrimaryDataAsset)
 	{
 		// I already checked validation in FindAbilityInfoByTag function.
-		return AbilityDataAsset->FindAbilityInfoByTag(GetAssetTags().First());
+		ensure(GetAssetTags().First().IsValid());
+		return AbilityPrimaryDataAsset->FindAbilityInfoByTag(GetAssetTags().First());
 	}
 	return FAbilityInfo();
 }
