@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 
-#include "WeaponDataAsset.h"
 #include "GameFramework/Actor.h"
 #include "WeaponDataTypes.h"
 
