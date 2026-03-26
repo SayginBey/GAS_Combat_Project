@@ -53,6 +53,16 @@ protected:
 	virtual void SagoRemoveAbilities(TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove) override;
 	 /* SagoBaseCharacterInterface End */
 	
+	/* Death Logic Start*/
+	UFUNCTION(BlueprintCallable, Category = "Death")
+	virtual void OnDeadTagChanged(const FGameplayTag CallbackTag, int32 NewCount);
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category="Death")
+	void HandleDeath();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Death")
+	float DeathImpulseAmount = 25000.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Death")
+	float DeathZImpulseAmount = 20000.f;
+	/* Death Logic End*/
 	
 public:	
 	// Called every frame

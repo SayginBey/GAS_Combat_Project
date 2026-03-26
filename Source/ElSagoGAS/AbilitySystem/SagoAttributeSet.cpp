@@ -45,11 +45,33 @@ void USagoAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
 	{
 		//Set health already clamping the new value. So we don't have to clamp again.
 		SetHealth(GetHealth());
+		
+		if (Data.EffectSpec.Def->GetAssetTags().HasTag(FGameplayTag::RequestGameplayTag(FName("Effects.DoHitReaction"))))
+		{
+			FGameplayTagContainer AbilityTagContainer;
+			AbilityTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Ability.HitReaction")));
+			GetOwningAbilitySystemComponent()->TryActivateAbilitiesByTag(AbilityTagContainer);
+		}
 	}
 	else if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
 	{
 		//Set Stamina already clamping the new value. So we don't have to clamp again.
 		SetStamina(GetStamina());
+	}
+}
+
+void USagoAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)
+{
+	Super::PostAttributeChange(Attribute, OldValue, NewValue);
+	
+	if (Attribute == GetHealthAttribute())
+	{
+		if (NewValue <= 0.f)
+		{
+			FGameplayTagContainer AbilityTagContainer;
+			AbilityTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Ability.Death")));
+			GetOwningAbilitySystemComponent()->TryActivateAbilitiesByTag(AbilityTagContainer);
+		}
 	}
 }
 

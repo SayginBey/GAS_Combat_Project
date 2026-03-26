@@ -5,8 +5,10 @@
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "ElSagoGAS/AbilitySystem/SagoAbilitySystemComponent.h"
 #include "ElSagoGAS/AbilitySystem/SagoAttributeSet.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 ASagoBaseCharacter::ASagoBaseCharacter()
@@ -26,6 +28,7 @@ void ASagoBaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	GetAbilitySystemComponent()->RegisterGameplayTagEvent(FGameplayTag::RequestGameplayTag(FName("State.Dead"))).AddUObject(this, &ASagoBaseCharacter::OnDeadTagChanged);
 }
 
 void ASagoBaseCharacter::Tick(float DeltaTime)
@@ -112,6 +115,31 @@ TArray<FGameplayAbilitySpecHandle> ASagoBaseCharacter::SagoGrantAbilities(
 void ASagoBaseCharacter::SagoRemoveAbilities(const TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove)
 {
 	RemoveAbilities(AbilitiesToRemove);
+}
+
+void ASagoBaseCharacter::OnDeadTagChanged(const FGameplayTag CallbackTag, int32 NewCount)
+{
+	if (NewCount > 0)   // if State.Dead Tag Count > 0
+	{
+		HandleDeath();
+	}
+}
+
+void ASagoBaseCharacter::HandleDeath_Implementation()
+{
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::Type::QueryAndPhysics);
+	GetMesh()->SetSimulatePhysics(true);
+//	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
+	/*if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	{
+		PC->DisableInput(PC);
+	}*/
+	GetCharacterMovement()->DisableMovement();
+	
+	FVector ForceVector = GetActorForwardVector() * DeathImpulseAmount*-1;
+	ForceVector.Z = DeathZImpulseAmount;
+	GetMesh()->AddImpulse(ForceVector);
 }
 
 void ASagoBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
