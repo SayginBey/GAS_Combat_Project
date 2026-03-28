@@ -27,4 +27,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	FAbilityInfo GetAbilityInfo() const;
+	
+	UFUNCTION(BlueprintCallable,BlueprintPure,Category="AbilitySystem")
+	const bool HasPC() const;
 };

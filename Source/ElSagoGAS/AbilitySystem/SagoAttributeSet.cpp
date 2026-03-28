@@ -46,7 +46,8 @@ void USagoAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
 		//Set health already clamping the new value. So we don't have to clamp again.
 		SetHealth(GetHealth());
 		
-		if (Data.EffectSpec.Def->GetAssetTags().HasTag(FGameplayTag::RequestGameplayTag(FName("Effects.DoHitReaction"))))
+		if (Data.EffectSpec.Def->GetAssetTags().HasTag(FGameplayTag::RequestGameplayTag(FName("Effects.DoHitReaction")))
+			&& Data.EvaluatedData.Magnitude != 0.f)
 		{
 			FGameplayTagContainer AbilityTagContainer;
 			AbilityTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Ability.HitReaction")));

@@ -15,3 +15,13 @@ FAbilityInfo USagoGameplayAbility::GetAbilityInfo() const
 	}
 	return FAbilityInfo();
 }
+
+const bool USagoGameplayAbility::HasPC() const
+{
+	APawn* Pawn = Cast<APawn>(GetAvatarActorFromActorInfo());
+	if (Pawn)
+	{
+		return Pawn->GetController()->IsA<APlayerController>();
+	}
+	return false;
+}
