@@ -8,6 +8,7 @@
 #include "Components/CapsuleComponent.h"
 #include "ElSagoGAS/AbilitySystem/SagoAbilitySystemComponent.h"
 #include "ElSagoGAS/AbilitySystem/SagoAttributeSet.h"
+#include "ElSagoGAS/AbilitySystem/SagoGameplayAbility.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
@@ -89,6 +90,12 @@ TArray<FGameplayAbilitySpecHandle> ASagoBaseCharacter::GrantAbilities(
 			FGameplayAbilitySpecHandle AbilityHandle = GetAbilitySystemComponent()->GiveAbility(FGameplayAbilitySpec(Ability,1, INDEX_NONE, this));
 			GrantedAbilityHandles.Add(AbilityHandle);
 			SendAbilitiesChangedEvent();
+			const USagoGameplayAbility* SagoAbility = Cast<USagoGameplayAbility>(Ability->GetDefaultObject());
+			if (SagoAbility && SagoAbility->GetAbilityInfo().bAutoActivateOnGranted == true)
+			{
+				// If the ability has bAutoActivateOnGranted set to true, we try to activate it immediately after granting.
+				GetAbilitySystemComponent()->TryActivateAbility(AbilityHandle);
+			}
 		}
 	}
 	return GrantedAbilityHandles;

@@ -25,6 +25,9 @@ struct FAbilityInfo
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	bool bShowInAbilityBar = false;
 	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	bool bAutoActivateOnGranted = false;
+	
 };
 
 /**
