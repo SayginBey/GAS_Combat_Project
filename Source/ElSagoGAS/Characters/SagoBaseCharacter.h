@@ -44,14 +44,11 @@ protected:
 	virtual void OnRep_PlayerState() override;
 	
 	UFUNCTION(BlueprintCallable, Category = "Ability")
-	TArray<FGameplayAbilitySpecHandle> GrantAbilities(TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant);
+	TArray<FGameplayAbilitySpecHandle> GrantAbilities(TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant, int32 AbilityLevel = 1);
 	UFUNCTION(BlueprintCallable, Category = "Ability")
 	void RemoveAbilities(TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove);
-	
-	/* SagoBaseCharacterInterface Start */
-	virtual TArray<FGameplayAbilitySpecHandle> SagoGrantAbilities(TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant) override;
-	virtual void SagoRemoveAbilities(TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove) override;
-	 /* SagoBaseCharacterInterface End */
+
+	/* SagoBaseCharacterInterface End */
 	
 	/* Death Logic Start*/
 	UFUNCTION(BlueprintCallable, Category = "Death")

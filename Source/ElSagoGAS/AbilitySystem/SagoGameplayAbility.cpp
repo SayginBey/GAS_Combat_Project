@@ -25,3 +25,11 @@ const bool USagoGameplayAbility::HasPC() const
 	}
 	return false;
 }
+
+void USagoGameplayAbility::SetAbilityLevel(const int32 NewLevel)
+{
+	if (GetCurrentAbilitySpec())
+	{
+		GetCurrentAbilitySpec()->Level = NewLevel;
+	}
+}

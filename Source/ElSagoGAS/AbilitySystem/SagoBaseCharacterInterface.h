@@ -23,6 +23,4 @@ class ELSAGOGAS_API ISagoBaseCharacterInterface
 	GENERATED_BODY()
 
 public:
-	virtual TArray<FGameplayAbilitySpecHandle> SagoGrantAbilities(TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant) = 0;
-	virtual void SagoRemoveAbilities(TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove) = 0;
 };

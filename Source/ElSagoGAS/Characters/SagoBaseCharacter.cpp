@@ -49,7 +49,7 @@ void ASagoBaseCharacter::PossessedBy(AController* NewController)
 		/* We grant abilities here because this function only runs on the server, and giving abilities only works on the server. 
 		 * If we were to give abilities in BeginPlay, we would have to check for authority and it would be possible for 
 		 * clients to miss out on being granted abilities if they join late.*/
-		GrantAbilities(StartupAbilities);
+		GrantAbilities(StartupAbilities, 1);
 	}
 }
 
@@ -74,7 +74,7 @@ void ASagoBaseCharacter::SendAbilitiesChangedEvent()
 }
 
 TArray<FGameplayAbilitySpecHandle> ASagoBaseCharacter::GrantAbilities(
-	TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant)
+	TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant, const int32 AbilityLevel)
 {
 	//Give ability only works on the server, so we check for authority and if the ability system component is valid before granting abilities.
 	if (!AbilitySystemComponent || !HasAuthority())
@@ -87,7 +87,8 @@ TArray<FGameplayAbilitySpecHandle> ASagoBaseCharacter::GrantAbilities(
 	{
 		if (Ability)
 		{
-			FGameplayAbilitySpecHandle AbilityHandle = GetAbilitySystemComponent()->GiveAbility(FGameplayAbilitySpec(Ability,1, INDEX_NONE, this));
+			FGameplayAbilitySpecHandle AbilityHandle = GetAbilitySystemComponent()->GiveAbility(FGameplayAbilitySpec(Ability,AbilityLevel, 
+				INDEX_NONE, this));
 			GrantedAbilityHandles.Add(AbilityHandle);
 			SendAbilitiesChangedEvent();
 			const USagoGameplayAbility* SagoAbility = Cast<USagoGameplayAbility>(Ability->GetDefaultObject());
@@ -110,18 +111,6 @@ void ASagoBaseCharacter::RemoveAbilities(TArray<FGameplayAbilitySpecHandle> Abil
 		GetAbilitySystemComponent()->ClearAbility(AbilityHandle);
 	}
 	SendAbilitiesChangedEvent();
-}
-
-TArray<FGameplayAbilitySpecHandle> ASagoBaseCharacter::SagoGrantAbilities(
-	TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant)
-{
-	if (AbilitiesToGrant.Num() == 0){return TArray<FGameplayAbilitySpecHandle>();}
-	return GrantAbilities(AbilitiesToGrant);
-}
-
-void ASagoBaseCharacter::SagoRemoveAbilities(const TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove)
-{
-	RemoveAbilities(AbilitiesToRemove);
 }
 
 void ASagoBaseCharacter::OnDeadTagChanged(const FGameplayTag CallbackTag, int32 NewCount)

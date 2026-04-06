@@ -30,4 +30,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable,BlueprintPure,Category="AbilitySystem")
 	const bool HasPC() const;
+	
+	UFUNCTION(BlueprintCallable,Category="AbilitySystem")
+	void SetAbilityLevel(int32 NewLevel);
 };
