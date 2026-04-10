@@ -63,6 +63,14 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_MaxStrength)
 	FGameplayAttributeData MaxStrength;
 	ATTRIBUTE_ACCESSORS_BASIC(USagoAttributeSet, MaxStrength);
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_Haste)
+	FGameplayAttributeData Haste;
+	ATTRIBUTE_ACCESSORS_BASIC(USagoAttributeSet, Haste)
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_MaxHaste)
+	FGameplayAttributeData MaxHaste;
+	ATTRIBUTE_ACCESSORS_BASIC(USagoAttributeSet, MaxHaste);
 
 public:
 	UFUNCTION()
@@ -121,7 +129,16 @@ public:
 	{
 		GAMEPLAYATTRIBUTE_REPNOTIFY(USagoAttributeSet, MaxStrength, OldMaxStrength);
 	}
-	
+	UFUNCTION()
+	void OnRep_Haste(const FGameplayAttributeData& OldHaste) const
+	{
+		GAMEPLAYATTRIBUTE_REPNOTIFY(USagoAttributeSet, Haste, OldHaste);
+	}
+	UFUNCTION()
+	void OnRep_MaxHaste(const FGameplayAttributeData& OldMaxHaste) const
+	{
+		GAMEPLAYATTRIBUTE_REPNOTIFY(USagoAttributeSet, MaxHaste, OldMaxHaste);
+	}
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 	
 	//For clamping the attributes.

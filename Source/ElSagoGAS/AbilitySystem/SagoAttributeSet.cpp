@@ -18,6 +18,8 @@ USagoAttributeSet::USagoAttributeSet()
 	MaxArmor = 100.f;
 	Strength = 0.f;
 	MaxStrength = 100.f;
+	Haste = 0.f;
+	MaxHaste = 50.f;
 }
 
 void USagoAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
@@ -35,6 +37,8 @@ void USagoAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimePropert
 	DOREPLIFETIME_CONDITION_NOTIFY( USagoAttributeSet, MaxArmor, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY( USagoAttributeSet, Strength, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY( USagoAttributeSet, MaxStrength, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY( USagoAttributeSet, Haste, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY( USagoAttributeSet, MaxHaste, COND_None, REPNOTIFY_Always);
 }
 
 void USagoAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -60,6 +64,10 @@ void USagoAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
 	else if (Attribute == GetStrengthAttribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxStrength());
+	}
+	else if (Attribute == GetHasteAttribute())
+	{
+		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxHaste());
 	}
 }
 
@@ -120,6 +128,11 @@ void USagoAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
 	{
 		//Set Strength already clamping the new value. So we don't have to clamp again.
 		SetStrength(GetStrength());
+	}
+	else if (Data.EvaluatedData.Attribute == GetHasteAttribute())
+	{
+		//Set Haste already clamping the new value. So we don't have to clamp again.
+		SetHaste(GetHaste());
 	}
 }
 

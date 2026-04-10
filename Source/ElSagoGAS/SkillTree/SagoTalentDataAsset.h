@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AttributeSet.h"
+#include "GameplayTagContainer.h"
 #include "Engine/DataAsset.h"
 #include "SagoTalentDataAsset.generated.h"
 
@@ -16,10 +18,10 @@ class UGameplayAbility;
 UENUM(BlueprintType)
 enum class ETalentType: uint8
 {
-	ETK_None UMETA(DisplayName = "None"),
-	ETK_Active UMETA(DisplayName = "Active"),
-	ETK_Passive UMETA(DisplayName = "Passive"),
-	ETK_Triggered UMETA(DisplayName = "Reactive")
+	ETT_None UMETA(DisplayName = "None"),
+	ETT_Active UMETA(DisplayName = "Active"),
+	ETT_Passive UMETA(DisplayName = "Passive"),
+	ETT_Triggered UMETA(DisplayName = "Reactive")
 };
 
 USTRUCT(BlueprintType)
@@ -41,7 +43,10 @@ struct FTalentInfo
 	TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Logic")
 	TArray<TSubclassOf<UGameplayEffect>> EffectsToApply;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="For Stat Talents")
+	FGameplayAttribute Attribute;
 };
+
 UCLASS()
 class ELSAGOGAS_API USagoTalentDataAsset : public UPrimaryDataAsset
 {
