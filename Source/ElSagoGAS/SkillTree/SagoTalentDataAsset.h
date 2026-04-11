@@ -40,7 +40,7 @@ struct FTalentInfo
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Logic")
 	int32 MaxLevel;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Logic")
-	TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant;
+	TMap<FGameplayTag, TSubclassOf<UGameplayAbility>> AbilityTagToAbilitiesToGrantMap;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Logic")
 	TArray<TSubclassOf<UGameplayEffect>> EffectsToApply;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="For Stat Talents")
