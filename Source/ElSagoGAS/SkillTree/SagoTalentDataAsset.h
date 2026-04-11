@@ -45,6 +45,7 @@ struct FTalentInfo
 	TArray<TSubclassOf<UGameplayEffect>> EffectsToApply;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="For Stat Talents")
 	FGameplayAttribute Attribute;
+	
 };
 
 UCLASS()

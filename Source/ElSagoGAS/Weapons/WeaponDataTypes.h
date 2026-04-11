@@ -18,6 +18,15 @@ enum class EWeaponType: uint8
 	EWT_Staff UMETA(DisplayName = "Staff")
 };
 
+UENUM(BlueprintType)
+enum class EElementTypes: uint8
+{
+	EET_None UMETA(DisplayName = "None"),
+	EET_Fire UMETA(DisplayName = "Fire"),
+	EET_Ice UMETA(DisplayName = "Ice"),
+	EET_Curse UMETA(DisplayName = "Curse")
+};
+
 USTRUCT(BlueprintType)
 struct FWeaponAnimationData
 {
@@ -35,8 +44,6 @@ struct FWeaponAnimationData
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	TMap<int32,TObjectPtr<UAnimMontage>> ComboIndexToMontageMap;
-	
-	
 };
 
 USTRUCT(BlueprintType)
@@ -56,6 +63,16 @@ struct FWeaponMovementProperties
 };
 
 USTRUCT(BlueprintType)
+struct FElementalAbility
+{
+	
+	GENERATED_BODY()
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	TArray<TSubclassOf<UGameplayAbility>> ElementalAbilities;
+};
+
+USTRUCT(BlueprintType)
 struct FWeaponInfo
 {
 	GENERATED_BODY()
@@ -68,6 +85,9 @@ struct FWeaponInfo
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	TArray<TSubclassOf<UGameplayAbility>> GrantedAbilitiesByWeapon;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	TMap<EElementTypes, FElementalAbility> ElementalGrantedAbilitiesByWeaponMap;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	FName HandSocketName;
@@ -85,11 +105,11 @@ struct FWeaponInfo
 	FWeaponMovementProperties MovementProperties;
 };
 
-class ELSAGOGAS_API WeaponDataTypes
+class ELSAGOGAS_API FWeaponDataTypes
 {
 public:
-	WeaponDataTypes();
-	~WeaponDataTypes();
+	FWeaponDataTypes();
+	~FWeaponDataTypes();
 	
 	
 };

@@ -29,7 +29,7 @@ protected:
 public:
 	
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	FORCEINLINE FWeaponInfo GetWeaponInfo() const;
+	FWeaponInfo GetWeaponInfo() const;
 	
 	virtual void Tick(float DeltaTime) override;
 
@@ -37,8 +37,6 @@ public:
 	FGameplayTag WeaponTag;
 	
 private:
-	
-	EWeaponType WeaponType;
 	
 	UPROPERTY(EditDefaultsOnly, Category= "Weapon Properties")
 	TObjectPtr<USagoWeaponPrimaryDataAsset> WeaponPrimaryDataAsset;

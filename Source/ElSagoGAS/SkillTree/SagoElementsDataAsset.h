@@ -3,24 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayEffect.h"
+#include "ElSagoGAS/Weapons/WeaponDataTypes.h"
 #include "Engine/DataAsset.h"
-#include "SagoElementDataAsset.generated.h"
+#include "SagoElementsDataAsset.generated.h"
 
 /**
  * 
  */
 
-class UGameplayEffect;
-class UGameplayAbility;
-
-UENUM(BlueprintType)
-enum class EElementTypes: uint8
-{
-	EET_None UMETA(DisplayName = "None"),
-	EET_Fire UMETA(DisplayName = "Fire"),
-	EET_Ice UMETA(DisplayName = "Ice"),
-	EET_Curse UMETA(DisplayName = "Curse")
-};
 USTRUCT(BlueprintType)
 struct FElementInfo
 {
@@ -41,7 +32,7 @@ struct FElementInfo
 };
 
 UCLASS()
-class ELSAGOGAS_API USagoElementDataAsset : public UPrimaryDataAsset
+class ELSAGOGAS_API USagoElementsDataAsset : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
 	
