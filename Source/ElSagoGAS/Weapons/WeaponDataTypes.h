@@ -69,7 +69,7 @@ struct FElementalAbility
 	GENERATED_BODY()
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	TArray<TSubclassOf<UGameplayAbility>> ElementalAbilities;
+	TMap<FGameplayTag, TSubclassOf<UGameplayAbility>> ElementalAbilitiesAndTheirTalentTagMap;
 };
 
 USTRUCT(BlueprintType)
@@ -84,7 +84,7 @@ struct FWeaponInfo
 	EWeaponType WeaponType;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	TArray<TSubclassOf<UGameplayAbility>> GrantedAbilitiesByWeapon;
+	TMap<FGameplayTag, TSubclassOf<UGameplayAbility>> GrantedAbilitiesByWeaponAndTheirTalentTagMap;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	TMap<EElementTypes, FElementalAbility> ElementalGrantedAbilitiesByWeaponMap;

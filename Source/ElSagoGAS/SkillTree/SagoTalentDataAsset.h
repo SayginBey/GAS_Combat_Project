@@ -30,6 +30,8 @@ struct FTalentInfo
 	GENERATED_BODY()
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="UI")
+	FGameplayTag TalentTag;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="UI")
 	FName Name;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="UI")
 	FName Description;
@@ -43,6 +45,8 @@ struct FTalentInfo
 	TMap<FGameplayTag, TSubclassOf<UGameplayAbility>> AbilityTagToAbilitiesToGrantMap;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Logic")
 	TArray<TSubclassOf<UGameplayEffect>> EffectsToApply;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="For Active Talents")
+	FText LevelUpDescription;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="For Stat Talents")
 	FGameplayAttribute Attribute;
 	
