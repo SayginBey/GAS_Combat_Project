@@ -12,10 +12,6 @@ struct FAbilityInfo
 {
 	GENERATED_BODY()
 	
-	// Suan kullanmiyorum lazim olursa acarim.
-	/*UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	FGameplayTag AbilityTag = FGameplayTag();*/
-	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	FText AbilityName;
 	
